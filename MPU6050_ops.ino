@@ -68,7 +68,7 @@ MPU6050 mpu;
  * ========================================================================= */
 
 
-#define OUTPUT_READABLE_YAWPITCHROLL
+//#define OUTPUT_READABLE_YAWPITCHROLL
 
 // Unccomment if you are using an Arduino-Style Board
 #define ARDUINO_BOARD
@@ -133,17 +133,20 @@ void mpu_setup() {
     devStatus = mpu.dmpInitialize();
 
     // supply your own gyro offsets here, scaled for min sensitivity
-    mpu.setXAccelOffset(-886);
-    mpu.setYAccelOffset(-624);
-    mpu.setZAccelOffset(3361);
-    mpu.setXGyroOffset(-18);
-    mpu.setYGyroOffset(16);
-    mpu.setZGyroOffset(10);
+    mpu.setXAccelOffset(2819);
+    mpu.setYAccelOffset(307);
+    mpu.setZAccelOffset(3189);
+    mpu.setXGyroOffset(113);
+    mpu.setYGyroOffset(-68);
+    mpu.setZGyroOffset(-49);
 
     //856	309	1443	116	-72	-58
     //848	301	1449	116	-71	-56
 
     // 1 axis chip: -886	-624	3361	-18	16	10
+
+    // chip yaw test:
+    // 2819	307	3189	113	-68	-49
 
     // make sure it worked (returns 0 if so)
     if (devStatus == 0) {
