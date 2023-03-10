@@ -14,7 +14,7 @@ double x;
 double y;
 double z;
 
-double kp = 4.5;
+double kp = 12;
 double ki = 0;
 double kd = 0;
 

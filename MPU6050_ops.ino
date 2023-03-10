@@ -29,7 +29,6 @@ THE SOFTWARE.
 // I2Cdev and MPU6050 must be installed as libraries, or else the .cpp/.h files
 // for both classes must be in the include path of your project
 #include "I2Cdev.h"
-
 #include "MPU6050_6Axis_MotionApps20.h"
 
 // Arduino Wire library is required if I2Cdev I2CDEV_ARDUINO_WIRE implementation
@@ -133,12 +132,13 @@ void mpu_setup() {
     devStatus = mpu.dmpInitialize();
 
     // supply your own gyro offsets here, scaled for min sensitivity
-    mpu.setXAccelOffset(2819);
-    mpu.setYAccelOffset(307);
-    mpu.setZAccelOffset(3189);
-    mpu.setXGyroOffset(113);
-    mpu.setYGyroOffset(-68);
-    mpu.setZGyroOffset(-49);
+    mpu.setXAccelOffset(888);
+    mpu.setYAccelOffset(289);
+    mpu.setZAccelOffset(1476);
+    mpu.setXGyroOffset(118);
+    mpu.setYGyroOffset(-63);
+    mpu.setZGyroOffset(-56);
+    // 888,     289,    1476,     118,     -63,     -56
 
     //856	309	1443	116	-72	-58
     //848	301	1449	116	-71	-56
@@ -148,10 +148,15 @@ void mpu_setup() {
     // chip yaw test:
     // 2819	307	3189	113	-68	-49
 
+    
+
     // make sure it worked (returns 0 if so)
     if (devStatus == 0) {
         // turn on the DMP, now that it's ready
         Serial.println(F("Enabling DMP..."));
+        mpu.CalibrateAccel(6);
+        mpu.CalibrateGyro(6);
+        mpu.PrintActiveOffsets();
         mpu.setDMPEnabled(true);
 
         // enable Arduino interrupt detection
