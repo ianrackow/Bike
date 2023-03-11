@@ -14,11 +14,13 @@ double x;
 double y;
 double z;
 
-double kp = 12;
-double ki = 0;
-double kd = 0;
+double kp = 50;
+double ki = 30;
+double kd = 10;
 
 double setpoint, input, output;
+
+double accum;
 
 PID pid(&input, &output, &setpoint, kp, ki, kd, DIRECT);
 
@@ -41,7 +43,10 @@ void setup(){
   setpoint = 0.0;
   pid.SetMode(AUTOMATIC);
   pid.SetOutputLimits(-255, 255);
+  pid.SetSampleTime(10);
   input = 0;
+
+  accum = 0;
 
 }
 
@@ -69,16 +74,22 @@ void loop(){
 
   input = ang;
 
+  setpoint = 0 - accum;
+  accum = accum - (output / 150);
+  accum = constrain(accum,-0.6,0.6);
+
   pid.Compute();
 
   if (output > 0) {
     digitalWrite(in1Pin, HIGH);
     digitalWrite(in2Pin, LOW);
     analogWrite(pwmPin, abs(output));
+    accum -= 0.05;
   } else {
     digitalWrite(in1Pin, LOW);
     digitalWrite(in2Pin, HIGH);
     analogWrite(pwmPin, abs(output));
+    accum += 0.05;
   }
 
 
