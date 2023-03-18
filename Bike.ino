@@ -15,8 +15,8 @@ double y;
 double z;
 
 double kp = 50;
-double ki = 30;
-double kd = 10;
+double ki = 40;
+double kd = 5;
 
 double setpoint, input, output;
 
