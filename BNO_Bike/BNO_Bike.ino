@@ -227,7 +227,7 @@ void loop() {
   if (cur_state == CALIBRATE) {
     if (toggle_val){
       cur_state = ON;
-      
+      /// Swicting back to off, turn motor off here
       level = 0;
       renderScreen();
       return;
